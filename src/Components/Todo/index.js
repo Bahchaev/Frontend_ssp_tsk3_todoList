@@ -1,15 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
+import styles from "./styles.module.css"
 
-const Todo = ({listName, isShown, onClick}) => {
+const Todo = ({todoName, isShown, onClick}) => {
+
+    const [backgroundColor, setBackgroundColor] = useState("white");
+    useEffect(() => {
+        setBackgroundColor(isShown ? 'red' : 'white');
+    },[isShown]);
 
     return (
-        <div className="todo" onClick={onClick} style={{backgroundColor: isShown ? 'red' : 'white'}}>{listName}</div>
+        <div className={styles.todo} onClick={onClick} style={{backgroundColor: backgroundColor}}>{todoName}</div>
     )
 };
 
 Todo.propTypes = {
-    listName: PropTypes.string.isRequired,
+    todoName: PropTypes.string.isRequired,
     isShown: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired
 };

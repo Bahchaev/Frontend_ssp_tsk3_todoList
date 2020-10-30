@@ -1,0 +1,22 @@
+.todoListField {
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid lightblue;
+}
+
+
+.todoAddField,
+.todoList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.todoList {
+    min-height: 210px;
+}

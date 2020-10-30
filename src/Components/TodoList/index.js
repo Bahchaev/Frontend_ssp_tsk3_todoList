@@ -1,14 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import Todo from "../Todo";
-import {useDispatch} from "react-redux";
+import TodoAddField from "../TodoAddField";
+import styles from "./styles.module.css"
+import {store} from "../../store/store";
 
-const TodoList = ({todoList, showList}) => {
+const TodoList = ({todoList, showTaskList, addNewTodo}) => {
+    //сортировка по алфавиту
+    let sortTodoList = todoList.sort(function (a, b) {
+        let nameA = a.todoName.toLowerCase(), nameB = b.todoName.toLowerCase();
+        if (nameA < nameB) //sort string ascending
+            return -1;
+        if (nameA > nameB)
+            return 1;
+        return 0;
+    });
+
     return (
-        <div className="todoList">
-            {todoList.map(todo => (
-                <Todo isShown={todo.isShown} listName={todo.listName} onClick={() => showList(todo.listName)}/>
-            ))}
+        <div className={styles.todoListField}>
+            <div className={styles.todoAddField}>
+                <TodoAddField addNewTodo={(newTodoName) => addNewTodo(newTodoName)} todoList={sortTodoList}/>
+            </div>
+            <div className={styles.todoList}>
+                {sortTodoList.map(todo => (
+                    <Todo isShown={todo.isShown} todoName={todo.todoName} onClick={() => showTaskList(todo.todoName)}/>
+                ))}
+            </div>
         </div>
     );
 };
@@ -16,7 +33,8 @@ const TodoList = ({todoList, showList}) => {
 
 TodoList.propTypes = {
     todoList: PropTypes.array.isRequired,
-    showList: PropTypes.func.isRequired
+    showTaskList: PropTypes.func.isRequired,
+    addNewTodo: PropTypes.func.isRequired
 };
 
 export default TodoList

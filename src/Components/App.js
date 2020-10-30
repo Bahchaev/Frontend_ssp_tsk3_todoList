@@ -1,21 +1,16 @@
-import {addNewTodo} from "../actions/addNewTodo";
-import {store} from "../store/store";
-import React, {useEffect} from 'react';
+import React from 'react';
 import TodoListContainer from "../Containers/TodoListContainer";
+import TaskListContainer from "../Containers/TaskListContainer";
+
+
 
 function App() {
 
-    console.log(store.getState());
-    store.subscribe(() => console.log(store.getState()));
-
-    useEffect(() => {
-        store.dispatch(addNewTodo('List1'));
-        store.dispatch(addNewTodo('List2'));
-        store.dispatch(addNewTodo('List3'));
-    }, []);
-
     return (
-        <TodoListContainer/>
+        <div>
+            <TodoListContainer/>
+            <TaskListContainer/>
+        </div>
     )
 }
 

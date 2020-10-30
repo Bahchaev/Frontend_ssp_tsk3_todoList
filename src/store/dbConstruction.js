@@ -2,30 +2,20 @@ let dbConstruction = {
     filtration: "SHOW_DONE",
     todoList: [
         {
-            listName: "name",
+            todoName: "name",
             isShown: false,
+            taskList: [
+                {
+                    taskText: "text",
+                    isDone: false
+                },
+                {}
+            ]
         },
         {},
         {}
 
     ],
-    taskList: {
-        listName1: [
-            {
-                taskText: "text",
-                isDone: false
-            },
-            {},
-            {}
-        ],
-        listName2: [
-            {
-                taskText: "text",
-                isDone: false
-            },
-            {},
-            {}
-        ]
-    }
 };
+
 

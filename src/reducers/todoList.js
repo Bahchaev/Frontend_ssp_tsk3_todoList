@@ -1,21 +1,43 @@
-import {ADD_NEW_LIST, SHOW_LIST} from "../actions/actionTypes";
+import {ADD_NEW_TASK, ADD_NEW_TODO, CLICK_ON_TODO} from "../actions/actions";
 
 export function todoList(state = [], action) {
     switch (action.type) {
-        case ADD_NEW_LIST: {
+        case ADD_NEW_TODO: {
+            console.log(state);
             return [
                 ...state,
                 {
-                    listName: action.listName,
-                    isShown: false
+                    todoName: action.newTodoName,
+                    isShown: false,
+                    taskList: []
                 }
             ]
         }
-        case SHOW_LIST: {
+
+        case CLICK_ON_TODO: {
             return state.map(todo =>
-                todo.listName === action.listName ? {...todo, isShown: !todo.isShown} : todo
+                todo.todoName === action.todoName ?
+                    {...todo, isShown: !todo.isShown} :
+                    {...todo, isShown: false}
             )
         }
+
+        case ADD_NEW_TASK: {
+            return state.map(todo =>
+                todo.isShown === true ?
+                    {
+                        ...todo, taskList: [
+                            ...todo.taskList,
+                            {
+                                taskText: action.taskText,
+                                isDone: false,
+                            }
+                        ]
+                    } :
+                    todo
+            )
+        }
+
         default:
             return state
     }

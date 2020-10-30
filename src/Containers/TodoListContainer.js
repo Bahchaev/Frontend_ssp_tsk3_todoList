@@ -1,13 +1,15 @@
 import { connect } from 'react-redux'
 import TodoList from "../Components/TodoList";
-import {showList} from "../actions/showList";
+import {clickOnTodo} from "../actions/actions";
+import {addNewTodo} from "../actions/actions";
 
 const mapStateToProps = state => ({
     todoList: state.todoList
 });
 
 const mapDispatchToProps = dispatch => ({
-    showList: listName => dispatch(showList(listName))
+    showTaskList: todoName => dispatch(clickOnTodo(todoName)),
+    addNewTodo: newTodoName => dispatch(addNewTodo(newTodoName))
 });
 
 export default connect(
