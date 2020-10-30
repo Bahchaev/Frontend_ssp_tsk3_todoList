@@ -2,25 +2,23 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
 import styles from "./styles.module.css"
 
-const Task = ({taskText, isDone, onClick, creationDate}) => {
+const Task = ({task, onClick}) => {
 
     const [backgroundColor, setBackgroundColor] = useState("white");
     useEffect(() => {
-        setBackgroundColor(isDone ? 'gray' : 'white');
-    }, [isDone]);
+        setBackgroundColor(task.isDone ? 'lightgray' : 'white');
+    }, [task.isDone]);
 
     return (
-        <div className={styles.task} onClick={onClick} style={{backgroundColor: backgroundColor}}>
-            <div>{taskText}</div>
-            <div>{creationDate}</div>
+        <div className={styles.task} style={{backgroundColor: backgroundColor}} onClick={onClick}>
+            <div className={styles.taskText}>{task.taskText}</div>
+            <input type={"checkbox"} checked={task.isDone}/>
+            <div className={styles.taskCreationDate}>{task.dateOfCreate}</div>
         </div>
     )
 };
 Task.propTypes = {
-    taskText: PropTypes.string.isRequired,
-    isDone: PropTypes.bool.isRequired,
-    onClick: PropTypes.func.isRequired,
-    creationDate: PropTypes.number.isRequired,
+    task: PropTypes.object.isRequired,
 };
 
 export default Task

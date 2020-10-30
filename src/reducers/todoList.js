@@ -1,14 +1,13 @@
-import {ADD_NEW_TASK, ADD_NEW_TODO, CLICK_ON_TODO} from "../actions/actions";
+import {ADD_NEW_TASK, ADD_NEW_TODO, CLICK_ON_TASK, CLICK_ON_TODO} from "../actions/actions";
 
 export function todoList(state = [], action) {
     switch (action.type) {
         case ADD_NEW_TODO: {
-            console.log(state);
             return [
-                ...state,
+                ...state.map(todo => ({...todo, isShown: false})),
                 {
                     todoName: action.newTodoName,
-                    isShown: false,
+                    isShown: true,
                     taskList: []
                 }
             ]
@@ -31,11 +30,27 @@ export function todoList(state = [], action) {
                             {
                                 taskText: action.taskText,
                                 isDone: false,
+                                dateOfCreate: action.dateOfCreate
                             }
                         ]
                     } :
                     todo
             )
+        }
+
+        case CLICK_ON_TASK: {
+           // return [...state]
+
+            return state.map(todo => ({
+                ...todo,
+                taskList: todo.taskList.map(task => (
+                    task === action.task ?
+                        {...task, isDone: !task.isDone} :
+                        {...task}
+                ))
+            }))
+
+
         }
 
         default:

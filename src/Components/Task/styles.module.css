@@ -1,3 +1,24 @@
 .task {
-    
+    box-sizing: border-box;
+    border: 1px solid red;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    margin: 5px 10px;
+}
+
+.taskText {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.taskCreationDate {
+    width: 35%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }

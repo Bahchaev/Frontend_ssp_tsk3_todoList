@@ -4,19 +4,18 @@ import Task from "../Task";
 import TaskAddField from "../TaskAddField";
 import PropTypes from "prop-types";
 
-const TaskList = ({taskList, clickedTodo, addNewTask}) => {
+const TaskList = ({taskList, addNewTask, clickOnTask}) => {
 
     //console.log(taskList);
     return (
-        <div className={"taskList"}>
-            <div>
+        <div className={styles.taskListContainer}>
+            <div className={styles.taskList}>
                 {taskList.map(task => (
-                    <Task creationDate={9999999999} onClick={""} taskText={task.taskText}
-                          isDone={task.isDone}/>
+                    <Task task={task} onClick={() => clickOnTask(task)} />
                 ))}
             </div>
-            <div>
-                <TaskAddField addNewTask={(newTaskText) => addNewTask(newTaskText)} taskList={taskList} clickedTodo={clickedTodo}/>
+            <div className={styles.taskAddField}>
+                <TaskAddField addNewTask={(newTaskText, dataOfCreate) => addNewTask(newTaskText, dataOfCreate)} taskList={taskList}/>
             </div>
         </div>
     )
@@ -24,8 +23,8 @@ const TaskList = ({taskList, clickedTodo, addNewTask}) => {
 
 TaskList.propTypes = {
     taskList: PropTypes.array.isRequired,
-    clickedTodo: PropTypes.string.isRequired,
-    addNewTask: PropTypes.func.isRequired
+    addNewTask: PropTypes.func.isRequired,
+    clickOnTask: PropTypes.func.isRequired
 };
 
 export default TaskList

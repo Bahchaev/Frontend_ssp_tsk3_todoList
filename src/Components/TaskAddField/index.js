@@ -13,8 +13,11 @@ const TaskAddField = ({addNewTask, taskList}) => {
                 }
                 if (taskList.every((task) =>
                     input.value.trim() !== task.taskText
-                ))
-                    addNewTask(input.value);
+                )) {
+                    let dateOfCreate = new Date().toLocaleString();
+                    addNewTask(input.value, dateOfCreate);
+                }
+
                 input.value = ""
 
             }}>

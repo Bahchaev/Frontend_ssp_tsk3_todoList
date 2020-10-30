@@ -3,6 +3,7 @@ import TodoList from "../Components/TodoList";
 import {clickOnTodo} from "../actions/actions";
 import {addNewTodo} from "../actions/actions";
 
+
 const mapStateToProps = state => ({
     todoList: state.todoList
 });

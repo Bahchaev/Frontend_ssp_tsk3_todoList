@@ -4,13 +4,13 @@ import styles from "./styles.module.css"
 
 const Todo = ({todoName, isShown, onClick}) => {
 
-    const [backgroundColor, setBackgroundColor] = useState("white");
+    const [fontWeight, setfontWeight] = useState("white");
     useEffect(() => {
-        setBackgroundColor(isShown ? 'red' : 'white');
+        setfontWeight(isShown ? 'bold' : 'normal');
     },[isShown]);
 
     return (
-        <div className={styles.todo} onClick={onClick} style={{backgroundColor: backgroundColor}}>{todoName}</div>
+        <div className={styles.todo} onClick={onClick} style={{fontWeight: fontWeight}}>{todoName}</div>
     )
 };
 

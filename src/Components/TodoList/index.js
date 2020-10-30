@@ -16,8 +16,10 @@ const TodoList = ({todoList, showTaskList, addNewTodo}) => {
         return 0;
     });
 
+
+
     return (
-        <div className={styles.todoListField}>
+        <div className={styles.todoListContainer}>
             <div className={styles.todoAddField}>
                 <TodoAddField addNewTodo={(newTodoName) => addNewTodo(newTodoName)} todoList={sortTodoList}/>
             </div>

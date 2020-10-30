@@ -12,6 +12,17 @@ let dbConstruction = {
                 {}
             ]
         },
+        {
+            todoName: "name",
+            isShown: false,
+            taskList: [
+                {
+                    taskText: "text",
+                    isDone: false
+                },
+                {}
+            ]
+        },
         {},
         {}
 
