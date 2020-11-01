@@ -5,9 +5,7 @@ import TaskAddField from "../TaskAddField";
 import PropTypes from "prop-types";
 import TaskListHeader from "../TaskHeader";
 
-const TaskList = ({taskList, addNewTask, clickOnTask, todoName, deleteTodo}) => {
-
-    //console.log(taskList);
+const TaskList = ({taskList, addNewTask, clickOnTask, todoName, deleteTodo, deleteTask}) => {
     return (
         <div className={styles.taskListContainer}>
             <div className={styles.taskListHeader}>
@@ -15,7 +13,7 @@ const TaskList = ({taskList, addNewTask, clickOnTask, todoName, deleteTodo}) => 
             </div>
             <div className={styles.taskList}>
                 {taskList.map(task => (
-                    <Task task={task} onClick={() => clickOnTask(task)} />
+                    <Task task={task} onClick={() => clickOnTask(task)} deleteTask={() => deleteTask(task)} />
                 ))}
             </div>
             <div className={styles.taskAddField}>
@@ -30,6 +28,8 @@ TaskList.propTypes = {
     addNewTask: PropTypes.func.isRequired,
     clickOnTask: PropTypes.func.isRequired,
     todoName: PropTypes.string.isRequired,
+    deleteTodo: PropTypes.func.isRequired,
+    deleteTask: PropTypes.func.isRequired
 };
 
 export default TaskList

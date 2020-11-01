@@ -22,15 +22,14 @@ const Todo = ({todo, onClick, setTodoIsDone}) => {
 
     useEffect(() => {
         switch (todo.isDone) {
-            case undefined:
-                setBackgroundColor("white");
-                break;
             case true:
                 setBackgroundColor("lightgray");
                 break;
             case false:
                 setBackgroundColor("lightgreen");
-                break
+                break;
+            default:
+                setBackgroundColor("white");
         }
     }, [todo.isDone]);
 

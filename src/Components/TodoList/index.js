@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Todo from "../Todo";
 import TodoAddField from "../TodoAddField";
 import styles from "./styles.module.css"
-import {store} from "../../store/store";
 
 const TodoList = ({todoList, showTaskList, addNewTodo, setTodoIsDone}) => {
     //сортировка по алфавиту

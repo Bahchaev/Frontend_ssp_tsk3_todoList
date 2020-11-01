@@ -2,7 +2,7 @@ import {
     ADD_NEW_TASK,
     ADD_NEW_TODO,
     CLICK_ON_TASK,
-    CLICK_ON_TODO,
+    CLICK_ON_TODO, DELETE_TASK,
     DELETE_TODO,
     SET_TODO_IS_DONE
 } from "../actions/actions";
@@ -19,9 +19,6 @@ export function todoList(state = [], action) {
                 }
             ]
         }
-
-
-
         case CLICK_ON_TODO: {
             return state.map(todo =>
                 todo.todoName === action.todoName ?
@@ -29,7 +26,6 @@ export function todoList(state = [], action) {
                     {...todo, isShown: false}
             )
         }
-
         case DELETE_TODO: {
             let newState = [
                 ...state
@@ -49,7 +45,6 @@ export function todoList(state = [], action) {
 
             return newState
         }
-
         case SET_TODO_IS_DONE: {
             return state.map(todo =>
                 todo.todoName === action.todoName ?
@@ -75,7 +70,6 @@ export function todoList(state = [], action) {
                     todo
             )
         }
-
         case CLICK_ON_TASK: {
             // return [...state]
 
@@ -87,6 +81,23 @@ export function todoList(state = [], action) {
                         {...task}
                 ))
             }))
+        }
+        case DELETE_TASK: {
+            let newState = [
+                ...state
+            ];
+
+            for (let i = 0; i < newState.length; i++) {
+                if (newState[i].isShown === true) {
+                    newState[i].taskList = newState[i].taskList.filter((task) =>
+                        task !== action.task
+                    );
+                    break;
+                }
+            }
+            console.log (newState);
+
+            return newState
         }
 
         default:

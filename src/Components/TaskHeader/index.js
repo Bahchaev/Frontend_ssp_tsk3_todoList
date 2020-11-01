@@ -1,13 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types'
 import styles from "./styles.module.css"
-import Task from "../Task";
 
 const TaskHeader = ({todoName, onClick}) => {
 
     const deleteBtnClick = () => {
         if (window.confirm("Удалить?")) onClick()
-
     };
 
     return (

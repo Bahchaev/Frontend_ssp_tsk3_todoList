@@ -1,7 +1,6 @@
 import {connect} from 'react-redux'
 import TaskList from "../Components/TaskList";
-import {addNewTask, clickOnTask, deleteTodo} from "../actions/actions";
-import {todoList} from "../reducers/todoList";
+import {addNewTask, clickOnTask, deleteTask, deleteTodo} from "../actions/actions";
 
 const getTaskList = (todoList) => {
     let taskList = [];
@@ -21,15 +20,20 @@ const getTodoName = (todoList) => {
     return todoName
 };
 
-const mapStateToProps = (state) => ({
-    taskList: getTaskList(state.todoList),
-    todoName: getTodoName(state.todoList)
-});
+const mapStateToProps = (state) => {
+    return (
+        {
+            taskList: getTaskList(state.todoList),
+            todoName: getTodoName(state.todoList)
+        }
+    )
+};
 
 const mapDispatchToProps = dispatch => ({
     addNewTask: (newTaskText, dataOfCreate, isImmediate) => dispatch(addNewTask(newTaskText, dataOfCreate, isImmediate)),
     clickOnTask: task => dispatch(clickOnTask(task)),
-    deleteTodo: () => dispatch(deleteTodo())
+    deleteTodo: () => dispatch(deleteTodo()),
+    deleteTask: task => dispatch(deleteTask(task))
 });
 
 export default connect(
