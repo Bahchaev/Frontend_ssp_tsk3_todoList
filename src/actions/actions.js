@@ -2,6 +2,8 @@ export const ADD_NEW_TODO = 'ADD_NEW_TODO';
 export const ADD_NEW_TASK = 'ADD_NEW_TASK';
 export const CLICK_ON_TODO = 'CLICK_ON_TODO';
 export const CLICK_ON_TASK = 'CLICK_ON_TASK';
+export const DELETE_TODO = 'DELETE_TODO';
+export const SET_TODO_IS_DONE = 'SET_TODO_IS_DONE';
 
 export function addNewTodo(newTodoName) {
     return {
@@ -11,18 +13,32 @@ export function addNewTodo(newTodoName) {
 }
 
 export function clickOnTodo(todoName) {
-    console.log(`click on ${todoName}`);
     return {
         type: CLICK_ON_TODO,
         todoName: todoName
     }
 }
 
-export function addNewTask(text, date) {
+export function deleteTodo(todo) {
+    return {
+        type: DELETE_TODO,
+    }
+}
+
+export function setTodoIsDone(todo, isDone) {
+    return {
+        type: SET_TODO_IS_DONE,
+        todoName: todo.todoName,
+        isDone: isDone
+    }
+}
+
+export function addNewTask(text, date, isImmediate) {
     return {
         type: ADD_NEW_TASK,
         taskText: text,
         dateOfCreate: date,
+        isImmediate: isImmediate
     }
 }
 
@@ -32,4 +48,6 @@ export function clickOnTask(task) {
         task: task,
     }
 }
+
+
 

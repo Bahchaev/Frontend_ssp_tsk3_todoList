@@ -1,0 +1,19 @@
+.taskListHeader {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskListTitle {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deleteBtn {
+    width: 200px;
+}

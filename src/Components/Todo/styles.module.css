@@ -1,8 +1,10 @@
 .todo {
-    height: 30px;
+    min-height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid lightblue;
+    word-break: break-all;
+    padding: 0 5px;
 }
 

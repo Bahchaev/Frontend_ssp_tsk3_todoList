@@ -1,4 +1,11 @@
-import {ADD_NEW_TASK, ADD_NEW_TODO, CLICK_ON_TASK, CLICK_ON_TODO} from "../actions/actions";
+import {
+    ADD_NEW_TASK,
+    ADD_NEW_TODO,
+    CLICK_ON_TASK,
+    CLICK_ON_TODO,
+    DELETE_TODO,
+    SET_TODO_IS_DONE
+} from "../actions/actions";
 
 export function todoList(state = [], action) {
     switch (action.type) {
@@ -8,16 +15,46 @@ export function todoList(state = [], action) {
                 {
                     todoName: action.newTodoName,
                     isShown: true,
-                    taskList: []
+                    taskList: [],
                 }
             ]
         }
 
+
+
         case CLICK_ON_TODO: {
             return state.map(todo =>
                 todo.todoName === action.todoName ?
-                    {...todo, isShown: !todo.isShown} :
+                    {...todo, isShown: true} :
                     {...todo, isShown: false}
+            )
+        }
+
+        case DELETE_TODO: {
+            let newState = [
+                ...state
+            ];
+
+            for (let i = 0; i < newState.length; i++) {
+                if (newState.length === 0) break;
+                if (newState[i].isShown === true) {
+
+                    if (i>0) {newState[i-1].isShown = true}
+                    if (i === 0 && newState.length !== 1) {newState[i+1].isShown = true}
+
+                    newState.splice(i,1);
+                    break;
+                }
+            }
+
+            return newState
+        }
+
+        case SET_TODO_IS_DONE: {
+            return state.map(todo =>
+                todo.todoName === action.todoName ?
+                    {...todo, isDone: action.isDone} :
+                    {...todo}
             )
         }
 
@@ -30,7 +67,8 @@ export function todoList(state = [], action) {
                             {
                                 taskText: action.taskText,
                                 isDone: false,
-                                dateOfCreate: action.dateOfCreate
+                                dateOfCreate: action.dateOfCreate,
+                                isImmediate: action.isImmediate
                             }
                         ]
                     } :
@@ -39,7 +77,7 @@ export function todoList(state = [], action) {
         }
 
         case CLICK_ON_TASK: {
-           // return [...state]
+            // return [...state]
 
             return state.map(todo => ({
                 ...todo,
@@ -49,8 +87,6 @@ export function todoList(state = [], action) {
                         {...task}
                 ))
             }))
-
-
         }
 
         default:

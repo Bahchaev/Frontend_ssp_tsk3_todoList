@@ -5,7 +5,7 @@ import TodoAddField from "../TodoAddField";
 import styles from "./styles.module.css"
 import {store} from "../../store/store";
 
-const TodoList = ({todoList, showTaskList, addNewTodo}) => {
+const TodoList = ({todoList, showTaskList, addNewTodo, setTodoIsDone}) => {
     //сортировка по алфавиту
     let sortTodoList = todoList.sort(function (a, b) {
         let nameA = a.todoName.toLowerCase(), nameB = b.todoName.toLowerCase();
@@ -16,8 +16,6 @@ const TodoList = ({todoList, showTaskList, addNewTodo}) => {
         return 0;
     });
 
-
-
     return (
         <div className={styles.todoListContainer}>
             <div className={styles.todoAddField}>
@@ -25,7 +23,11 @@ const TodoList = ({todoList, showTaskList, addNewTodo}) => {
             </div>
             <div className={styles.todoList}>
                 {sortTodoList.map(todo => (
-                    <Todo isShown={todo.isShown} todoName={todo.todoName} onClick={() => showTaskList(todo.todoName)}/>
+                    <Todo
+                        todo={todo}
+                        onClick={() => showTaskList(todo.todoName)}
+                        setTodoIsDone={(todo, isDone) => setTodoIsDone(todo, isDone)}
+                    />
                 ))}
             </div>
         </div>

@@ -1,12 +1,14 @@
 .task {
     box-sizing: border-box;
-    border: 1px solid red;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
-    padding: 5px;
-    margin: 5px 10px;
+    padding: 5px 0;
+}
+
+.task input {
+    margin-right: 10px;
 }
 
 .taskText {
@@ -14,6 +16,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    word-break: break-all;
 }
 
 .taskCreationDate {

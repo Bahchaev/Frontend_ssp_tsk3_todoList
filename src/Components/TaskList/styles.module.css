@@ -6,6 +6,19 @@
     align-items: stretch;
     border: 1px solid black;
     height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.taskListHeader {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    border-bottom: 1px solid green;
+    padding-bottom: 10px;
 }
 
 .taskList {
@@ -19,9 +32,9 @@
 .taskAddField {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     height: 30px;
-    background-color: lightgreen;
+    border-top: 1px solid green;
+    padding-top: 10px;
 }

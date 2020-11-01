@@ -1,0 +1,29 @@
+.taskAddField {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskText {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+}
+
+.taskTextInput {
+    width: 100%;
+    margin-right: 5px;
+}
+
+.taskCheckbox,
+.taskCheckboxLabel {
+    margin-right: 5px;
+}
+
+.taskAddBtn {
+    display: flex;
+    width: auto;
+}

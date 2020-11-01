@@ -2,21 +2,54 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
 import styles from "./styles.module.css"
 
-const Todo = ({todoName, isShown, onClick}) => {
+const Todo = ({todo, onClick, setTodoIsDone}) => {
 
-    const [fontWeight, setfontWeight] = useState("white");
+    const [fontWeight, setFontWeight] = useState("white");
+    const [backgroundColor, setBackgroundColor] = useState("white");
+
     useEffect(() => {
-        setfontWeight(isShown ? 'bold' : 'normal');
-    },[isShown]);
+        setFontWeight(todo.isShown ? 'bold' : 'normal');
+    }, [todo.isShown]);
+
+    useEffect(() => {
+        if (todo.taskList.length !== 0)
+            if (todo.taskList.every(task => task.isDone === true)) {
+                setTodoIsDone(todo, true);
+            } else {
+                setTodoIsDone(todo, false);
+            }
+    }, [todo.taskList]);
+
+    useEffect(() => {
+        switch (todo.isDone) {
+            case undefined:
+                setBackgroundColor("white");
+                break;
+            case true:
+                setBackgroundColor("lightgray");
+                break;
+            case false:
+                setBackgroundColor("lightgreen");
+                break
+        }
+    }, [todo.isDone]);
 
     return (
-        <div className={styles.todo} onClick={onClick} style={{fontWeight: fontWeight}}>{todoName}</div>
+        <div
+            className={styles.todo}
+            onClick={onClick}
+            style={{
+                fontWeight: fontWeight,
+                backgroundColor: backgroundColor,
+            }}
+        >
+            {todo.todoName}
+        </div>
     )
 };
 
 Todo.propTypes = {
-    todoName: PropTypes.string.isRequired,
-    isShown: PropTypes.bool.isRequired,
+    todo: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired
 };
 
