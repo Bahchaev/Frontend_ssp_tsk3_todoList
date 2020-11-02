@@ -20,7 +20,7 @@ const Task = ({task, onClick, deleteTask}) => {
 
     return (
         <div className={styles.task} style={{backgroundColor: backgroundColor}}>
-            <input type={"checkbox"} onClick={onClick}/>
+            <input type={"checkbox"} checked={task.isDone} onClick={onClick}/>
             <div className={styles.taskText}>{task.taskText}</div>
             <div style={{display: display}}>Срочное!!!</div>
             <div className={styles.taskCreationDate}>{task.dateOfCreate}</div>

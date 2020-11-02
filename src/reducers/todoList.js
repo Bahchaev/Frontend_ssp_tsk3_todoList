@@ -19,6 +19,7 @@ export function todoList(state = [], action) {
                 }
             ]
         }
+
         case CLICK_ON_TODO: {
             return state.map(todo =>
                 todo.todoName === action.todoName ?
@@ -26,6 +27,7 @@ export function todoList(state = [], action) {
                     {...todo, isShown: false}
             )
         }
+
         case DELETE_TODO: {
             let newState = [
                 ...state
@@ -45,6 +47,7 @@ export function todoList(state = [], action) {
 
             return newState
         }
+
         case SET_TODO_IS_DONE: {
             return state.map(todo =>
                 todo.todoName === action.todoName ?
@@ -70,6 +73,7 @@ export function todoList(state = [], action) {
                     todo
             )
         }
+
         case CLICK_ON_TASK: {
             // return [...state]
 

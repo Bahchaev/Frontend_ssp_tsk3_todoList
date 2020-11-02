@@ -12,12 +12,13 @@ const Todo = ({todo, onClick, setTodoIsDone}) => {
     }, [todo.isShown]);
 
     useEffect(() => {
-        if (todo.taskList.length !== 0)
+        if (todo.taskList.length !== 0) {
             if (todo.taskList.every(task => task.isDone === true)) {
                 setTodoIsDone(todo, true);
             } else {
                 setTodoIsDone(todo, false);
             }
+        } else setTodoIsDone(todo, undefined)
     }, [todo.taskList]);
 
     useEffect(() => {
