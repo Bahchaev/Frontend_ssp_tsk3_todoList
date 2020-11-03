@@ -7,6 +7,8 @@ export const CLICK_ON_TASK = 'CLICK_ON_TASK';
 export const ADD_NEW_TASK = 'ADD_NEW_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 
+export const SET_TODOS = 'SET_TODOS';
+
 export function addNewTodo(newTodoName) {
     return {
         type: ADD_NEW_TODO,
@@ -55,6 +57,13 @@ export function deleteTask(task) {
     return {
         type: DELETE_TASK,
         task: task
+    }
+}
+
+export function setTodos(records) {
+    return {
+        type: SET_TODOS,
+        records: records
     }
 }
 

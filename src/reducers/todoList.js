@@ -7,6 +7,26 @@ import {
     SET_TODO_IS_DONE
 } from "../actions/actions";
 
+
+
+let initialState = {
+    todoList: [
+        {
+            todoName: "newTodoName",
+            isShown: true,
+            taskList: [
+                {
+                    taskText: "taskText",
+                    isDone: false,
+                    dateOfCreate: "dateOfCreate",
+                    isImmediate: false
+                },
+                {}
+            ]
+        },
+    ]
+};
+
 export function todoList(state = [], action) {
     switch (action.type) {
         case ADD_NEW_TODO: {
@@ -37,10 +57,14 @@ export function todoList(state = [], action) {
                 if (newState.length === 0) break;
                 if (newState[i].isShown === true) {
 
-                    if (i>0) {newState[i-1].isShown = true}
-                    if (i === 0 && newState.length !== 1) {newState[i+1].isShown = true}
+                    if (i > 0) {
+                        newState[i - 1].isShown = true
+                    }
+                    if (i === 0 && newState.length !== 1) {
+                        newState[i + 1].isShown = true
+                    }
 
-                    newState.splice(i,1);
+                    newState.splice(i, 1);
                     break;
                 }
             }
@@ -99,7 +123,7 @@ export function todoList(state = [], action) {
                     break;
                 }
             }
-            console.log (newState);
+            console.log(newState);
 
             return newState
         }
