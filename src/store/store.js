@@ -1,8 +1,9 @@
 import todoApp, {createStoreWithFirebase} from "../reducers/combineReducer";
 import rootReducer from "../reducers/combineReducer"
-import {createStore} from "redux";
+import {applyMiddleware, createStore} from "redux";
+import thunk from "redux-thunk";
 
 const initialState = {
     todoList: []
 };
-export let store = createStore(todoApp);
+export let store = createStore(todoApp, applyMiddleware(thunk));

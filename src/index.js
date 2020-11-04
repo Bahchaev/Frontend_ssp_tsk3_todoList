@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from "./Components/App/index";
+import {store} from "./store/store";
+import {Provider} from "react-redux";
+import AppContainer from "./Containers/AppContainer";
 
 
 ReactDOM.render(
-
-    <App/>,
+    <Provider store={store}>
+        <AppContainer/>
+    </Provider>,
     document.getElementById('root')
-);
+)
+;

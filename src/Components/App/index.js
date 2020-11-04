@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Provider} from 'react-redux'
 import {store} from "../../store/store";
 import firebaseConfig from "../../firebase/firebaseConfig"
@@ -14,16 +14,21 @@ import Auth from "../Auth";
 import {fetchTodoList} from "../../actions/actions";
 
 
-function App() {
-    fetchTodoList();
+function App({fetchTodoList}) {
+    useEffect(() => {
+        fetchTodoList()
+        //TODO: отписаться от firebase
+    }, []);
+
+
     return (
-        <Provider store={store}>
+        <>
             <Auth/>
             <div id="App" className={styles.app}>
                 <TodoListContainer/>
                 <TaskListContainer/>
             </div>
-        </Provider>
+        </>
     )
 }
 

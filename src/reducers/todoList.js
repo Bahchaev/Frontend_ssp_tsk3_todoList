@@ -12,46 +12,46 @@ const initialState = {
 
 export function todoList(state= [], action) {
     switch (action.type) {
-        case FETCH_TODO_LIST: {
-            console.log(action.payload);
-            return [
-                ...state,
-                action.payload
-            ]
-        }
+        // case FETCH_TODO_LIST: {
+        //     console.log(action.payload);
+        //     return [
+        //         ...state,
+        //         action.payload
+        //     ]
+        // }
 
         case ADD_NEW_TODO: {
 
-            let newState = [
-                ...state
-            ];
-            newState.forEach(todo => todo.isShown = false);
-            newState.push({
-                todoName: action.newTodoName,
-                isShown: true,
-                taskList: [],
-            });
+            // let newState = [
+            //     ...state
+            // ];
+            // newState.forEach(todo => todo.isShown = false);
+            // newState.push({
+            //     todoName: action.newTodoName,
+            //     isShown: true,
+            //     taskList: [],
+            // });
+            //
+            // let userId;
+            // if (firebase.auth().currentUser) userId = firebase.auth().currentUser.uid;
+            // const Post = firebase.database().ref(`${userId}/todoList`);
+            // Post.push({
+            //     todoName: action.newTodoName,
+            //     isShown: true,
+            //     taskList: [],
+            // });
+            //
+            // return newState
 
-            let userId;
-            if (firebase.auth().currentUser) userId = firebase.auth().currentUser.uid;
-            const Post = firebase.database().ref(`${userId}/todoList`);
-            Post.push({
-                todoName: action.newTodoName,
-                isShown: true,
-                taskList: [],
-            });
 
-            return newState
-
-
-            // return [
-            //     ...state.map(todo => ({...todo, isShown: false})),
-            //     {
-            //         todoName: action.newTodoName,
-            //         isShown: true,
-            //         taskList: [],
-            //     }
-            // ]
+            return [
+                ...state.map(todo => ({...todo, isShown: false})),
+                {
+                    todoName: action.newTodoName,
+                    isShown: true,
+                    taskList: [],
+                }
+            ]
         }
 
         case CLICK_ON_TODO: {

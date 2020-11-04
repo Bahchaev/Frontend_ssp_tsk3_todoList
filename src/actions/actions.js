@@ -19,9 +19,9 @@ export const SET_TODOS = 'SET_TODOS';
 firebase.initializeApp(firebaseConfig);
 const base = firebase.database();
 
-var userId;
+let userId;
 if (firebase.auth().currentUser) userId = firebase.auth().currentUser.uid;
-const Post = base.ref();
+const Post = firebase.database().ref(`${userId}/todoList`);
 
 export function fetchTodoList() {
     console.log("fetchTodoList_action");
@@ -58,6 +58,18 @@ export function deleteTodo() {
 }
 
 export function setTodoIsDone(todo, isDone) {
+    // return ((dispatch, getState) => {
+    //     const state = getState();
+    //     let newState = state.map(todo =>
+    //         todo.todoName === action.todoName ?
+    //             {...todo, isDone: action.isDone} :
+    //             {...todo}
+    //     )
+    //     //update firebase
+    //     return dispatch({
+    //         type: SET_TODO_IS_DONE
+    //     })
+    // })
     return {
         type: SET_TODO_IS_DONE,
         todoName: todo.todoName,
