@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import TodoList from "../Components/TodoList";
-import {clickOnTodo, setTodoIsDone} from "../actions/actions";
+import {clickOnTodo, fetchTodoList, setTodoIsDone} from "../actions/actions";
 import {addNewTodo} from "../actions/actions";
 
 
