@@ -12,7 +12,7 @@ import styles from "./styles.module.css"
 import Auth from "../Auth";
 
 
-function App({fetchTodoList, stopFetching}) {
+function App({fetchTodoList, stopFetching, match: {params}}) {
 
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -27,7 +27,7 @@ function App({fetchTodoList, stopFetching}) {
             <Auth/>
             <div id="App" className={styles.app}>
                 <TodoListContainer/>
-                <TaskListContainer/>
+                <TaskListContainer todoName={params.todoName}/>
             </div>
         </>
     )

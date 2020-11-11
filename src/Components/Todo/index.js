@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
 import styles from "./styles.module.css"
 
+import {NavLink} from "react-router-dom";
+
 const Todo = ({todo, onClick, setTodoIsDone}) => {
 
     const [fontWeight, setFontWeight] = useState("white");
@@ -28,16 +30,18 @@ const Todo = ({todo, onClick, setTodoIsDone}) => {
     }, [todo.taskList]);
 
     return (
-        <div
-            className={styles.todo}
-            onClick={onClick}
-            style={{
-                fontWeight: fontWeight,
-                backgroundColor: backgroundColor,
-            }}
-        >
-            {todo.todoName}
-        </div>
+        <NavLink to={`${todo.todoName}`}>
+            <div
+                className={styles.todo}
+                onClick={onClick}
+                style={{
+                    fontWeight: fontWeight,
+                    backgroundColor: backgroundColor,
+                }}
+            >
+                {todo.todoName}
+            </div>
+        </NavLink>
     )
 };
 

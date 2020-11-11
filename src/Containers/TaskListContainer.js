@@ -2,29 +2,29 @@ import {connect} from 'react-redux'
 import TaskList from "../Components/TaskList";
 import {addNewTask, clickOnTask, deleteTask, deleteTodo} from "../actions/actions";
 
-const getTaskList = (todoList) => {
+const getTaskList = (todoList, todoName) => {
     let taskList = [];
     Object.keys(todoList).forEach((key) => {
-        if (todoList[key].isShown === true ) taskList = (todoList[key].taskList) ? todoList[key].taskList : {}
+        if (todoList[key].todoName === todoName ) taskList = (todoList[key].taskList) ? todoList[key].taskList : {}
     });
 
     return taskList
 };
 
-const getTodoName = (todoList) => {
-    let todoName;
-    Object.keys(todoList).forEach((key) => {
-        if (todoList[key].isShown === true) todoName = todoList[key].todoName
-    });
+// const getTodoName = (todoList, todoName) => {
+//     let todoName;
+//     Object.keys(todoList).forEach((key) => {
+//         if (todoList[key].todoName === todoName) todoName = todoList[key].todoName
+//     });
+//
+//     return todoName
+// };
 
-    return todoName
-};
-
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return (
         {
-            taskList: getTaskList(state.todoList),
-            todoName: getTodoName(state.todoList)
+            taskList: getTaskList(state.todoList, ownProps.todoName),
+            todoName: ownProps.todoName
         }
     )
 };

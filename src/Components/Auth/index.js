@@ -3,13 +3,19 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 
 import database from "../../firebase";
+import {NavLink} from "react-router-dom";
+import {useHistory} from "react-router";
 const Auth = () => {
+    let history = useHistory();
     /**
      * Handles the sign in button press.
      */
     const toggleSignIn = () => {
+
         if (firebase.auth().currentUser) {
-            firebase.auth().signOut().then()
+            firebase.auth().signOut().then();
+            history.replace('/');
+            window.location.reload()
 
         } else {
             let email = emailInput.value;

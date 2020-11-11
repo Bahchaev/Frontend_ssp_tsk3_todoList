@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Todo from "../Todo";
 import TodoAddField from "../TodoAddField";
 import styles from "./styles.module.css"
+import {NavLink} from "react-router-dom";
 
 const TodoList = ({todoList, clickOnTodo, addNewTodo, setTodoIsDone}) => {
 
@@ -21,13 +22,15 @@ const TodoList = ({todoList, clickOnTodo, addNewTodo, setTodoIsDone}) => {
             case filters.all:
                 filteredTodoList = {
                     ...initialTodoList
-                }; break;
+                };
+                break;
             case filters.done:
                 Object.keys(initialTodoList).forEach(key => {
                     if (initialTodoList[key].isDone === true) {
                         filteredTodoList[key] = initialTodoList[key]
                     }
-                }); break;
+                });
+                break;
             case filters.unDone:
                 Object.keys(initialTodoList).forEach(key => {
                     if (initialTodoList[key].taskList &&
@@ -35,13 +38,15 @@ const TodoList = ({todoList, clickOnTodo, addNewTodo, setTodoIsDone}) => {
                         initialTodoList[key].isDone === false) {
                         filteredTodoList[key] = initialTodoList[key]
                     }
-                }); break;
+                });
+                break;
             case filters.empty:
                 Object.keys(initialTodoList).forEach(key => {
                     if (!initialTodoList[key].taskList || Object.keys(initialTodoList[key].taskList).length === 0) {
                         filteredTodoList[key] = initialTodoList[key]
                     }
-                }); break;
+                });
+                break;
         }
         return filteredTodoList
     };
@@ -65,12 +70,14 @@ const TodoList = ({todoList, clickOnTodo, addNewTodo, setTodoIsDone}) => {
 
     useEffect(() => {
         setList(getFilteredTodoList(selectedFilter, todoList));
-    },[todoList]);
+    }, [todoList]);
 
     return (
         <div className={styles.todoListContainer}>
 
-            <select className={styles.filter} ref={node => (select = node)} onChange={() => {selectOnChange(select)}}>
+            <select className={styles.filter} ref={node => (select = node)} onChange={() => {
+                selectOnChange(select)
+            }}>
                 <option value={filters.all} selected>Все</option>
                 <option value={filters.done}>Сделанные</option>
                 <option value={filters.unDone}>Не сделанные</option>
