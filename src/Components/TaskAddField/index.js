@@ -13,8 +13,8 @@ const TaskAddField = ({addNewTask, taskList}) => {
                   if (!input.value.trim()) {
                       return
                   }
-                  if (taskList.every((task) =>
-                      input.value.trim() !== task.taskText
+                  if (Object.keys(taskList).every((key) =>
+                      input.value.trim() !== taskList[key].taskText
                   )) {
                       let dateOfCreate = new Date().toLocaleString();
                       addNewTask(input.value, dateOfCreate, checkbox.checked);

@@ -8,31 +8,24 @@ const Todo = ({todo, onClick, setTodoIsDone}) => {
     const [backgroundColor, setBackgroundColor] = useState("white");
 
     useEffect(() => {
-        setFontWeight(todo.isShown ? 'bold' : 'normal');
+        if (todo) setFontWeight(todo.isShown ? 'bold' : 'normal');
     }, [todo.isShown]);
 
     useEffect(() => {
-        if (todo.taskList.length !== 0) {
-            if (todo.taskList.every(task => task.isDone === true)) {
+        let taskList = todo.taskList;
+        if (todo && taskList && Object.keys(taskList).length !== 0) {
+            if (Object.keys(taskList).every(key => taskList[key].isDone === true)) {
                 setTodoIsDone(todo, true);
+                setBackgroundColor("lightgray");
             } else {
                 setTodoIsDone(todo, false);
-            }
-        } else setTodoIsDone(todo, undefined)
-    }, [todo.taskList]);
-
-    useEffect(() => {
-        switch (todo.isDone) {
-            case true:
-                setBackgroundColor("lightgray");
-                break;
-            case false:
                 setBackgroundColor("lightgreen");
-                break;
-            default:
-                setBackgroundColor("white");
+            }
+        } else {
+            setTodoIsDone(todo, false);
+            setBackgroundColor("white");
         }
-    }, [todo.isDone]);
+    }, [todo.taskList]);
 
     return (
         <div

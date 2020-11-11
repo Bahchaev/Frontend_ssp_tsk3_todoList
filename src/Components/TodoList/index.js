@@ -4,71 +4,73 @@ import Todo from "../Todo";
 import TodoAddField from "../TodoAddField";
 import styles from "./styles.module.css"
 
-const TodoList = ({todoList, showTaskList, addNewTodo, setTodoIsDone}) => {
-    //сортировка по алфавиту
-    const getSortedTodoList = (todoList) => {
-        return todoList.sort(function (a, b) {
-            let nameA = a.todoName.toLowerCase(), nameB = b.todoName.toLowerCase();
-            if (nameA < nameB) //sort string ascending
-                return -1;
-            if (nameA > nameB)
-                return 1;
-            return 0;
-        })
-    };
-    //список фильтра
+const TodoList = ({todoList, clickOnTodo, addNewTodo, setTodoIsDone}) => {
+
+    // список фильтра
     const filters = {
         all: "all",
         done: "done",
         unDone: "unDone",
         empty: "empty"
     };
+
     //фильтрация
-    const getFilteredTodoList = (selectedFilter, todoList) => {
+    const getFilteredTodoList = (selectedFilter, initialTodoList) => {
+        let filteredTodoList = {};
         switch (selectedFilter) {
             case filters.all:
-                return todoList;
+                filteredTodoList = {
+                    ...initialTodoList
+                }; break;
             case filters.done:
-                return todoList.filter(todo => todo.isDone === true);
+                Object.keys(initialTodoList).forEach(key => {
+                    if (initialTodoList[key].isDone === true) {
+                        filteredTodoList[key] = initialTodoList[key]
+                    }
+                }); break;
             case filters.unDone:
-                return todoList.filter(todo => todo.isDone === false);
+                Object.keys(initialTodoList).forEach(key => {
+                    if (initialTodoList[key].taskList &&
+                        Object.keys(initialTodoList[key].taskList).length !== 0 &&
+                        initialTodoList[key].isDone === false) {
+                        filteredTodoList[key] = initialTodoList[key]
+                    }
+                }); break;
             case filters.empty:
-                return todoList.filter(todo => todo.isDone === undefined);
+                Object.keys(initialTodoList).forEach(key => {
+                    if (!initialTodoList[key].taskList || Object.keys(initialTodoList[key].taskList).length === 0) {
+                        filteredTodoList[key] = initialTodoList[key]
+                    }
+                }); break;
         }
+        return filteredTodoList
     };
+
     const selectOnChange = (select) => {
         setSelectedFilter(select.value);
-        let list = getFilteredTodoList(select.value, todoList);
-        setList((list) ? list : []);
-        if (!list.find((elem) => elem.isShown === true)) {
-            showTaskList(list[0] ? list[0].todoName : "")
-        }
     };
 
     let select;
     const [selectedFilter, setSelectedFilter] = useState("all");
-    const [list, setList] = useState(getSortedTodoList(todoList));
+    const [list, setList] = useState(todoList);
 
-    // useEffect(() => {
-    //     let list = getFilteredTodoList(selectedFilter, todoList);
-    //     setList((list) ? list : []);
-    //
-    // }, [selectedFilter, todoList]);
-    //
-    // useEffect(() => {
-    //     showTaskList(list[0] ? list[0].todo : "");
-    // }, [selectedFilter]);
     useEffect(() => {
-
         let list = getFilteredTodoList(select.value, todoList);
-        list = getSortedTodoList(list);
-        setList(list)
-    }, [todoList]);
+        setList(list);
+        if (!Object.keys(list).find((key) => list[key].isShown === true)) {
+            let todoName = list[Object.keys(list)[0]] ? list[Object.keys(list)[0]].todoName : "";
+            clickOnTodo(todoName)
+        }
+    }, [selectedFilter]);
+
+    useEffect(() => {
+        setList(getFilteredTodoList(selectedFilter, todoList));
+    },[todoList]);
 
     return (
         <div className={styles.todoListContainer}>
 
-            <select ref={node => (select = node)} onChange={() => {selectOnChange(select)}}>
+            <select className={styles.filter} ref={node => (select = node)} onChange={() => {selectOnChange(select)}}>
                 <option value={filters.all} selected>Все</option>
                 <option value={filters.done}>Сделанные</option>
                 <option value={filters.unDone}>Не сделанные</option>
@@ -76,17 +78,20 @@ const TodoList = ({todoList, showTaskList, addNewTodo, setTodoIsDone}) => {
             </select>
 
             <div className={styles.todoList}>
-                {list.map(todo => (
+                {Object.keys(list).map(key => (
                     <Todo
-                        todo={todo}
-                        onClick={() => showTaskList(todo.todoName)}
-                        setTodoIsDone={(todo, isDone) => setTodoIsDone(todo, isDone)}
+                        todo={list[key]}
+                        onClick={() => clickOnTodo(list[key].todoName)}
+                        setTodoIsDone={(todo, isDone) => setTodoIsDone(list[key], isDone)}
                     />
                 ))}
 
             </div>
             <div className={styles.todoAddField}>
-                <TodoAddField addNewTodo={(newTodoName) => addNewTodo(newTodoName)} todoList={todoList}/>
+                <TodoAddField
+                    addNewTodo={(newTodoName) => addNewTodo(newTodoName)}
+                    todoList={todoList}
+                />
             </div>
         </div>
     );

@@ -4,8 +4,8 @@ import {addNewTask, clickOnTask, deleteTask, deleteTodo} from "../actions/action
 
 const getTaskList = (todoList) => {
     let taskList = [];
-    todoList.forEach((todo) => {
-        if (todo.isShown === true) taskList = todo.taskList
+    Object.keys(todoList).forEach((key) => {
+        if (todoList[key].isShown === true ) taskList = (todoList[key].taskList) ? todoList[key].taskList : {}
     });
 
     return taskList
@@ -13,8 +13,8 @@ const getTaskList = (todoList) => {
 
 const getTodoName = (todoList) => {
     let todoName;
-    todoList.forEach((todo) => {
-        if (todo.isShown === true) todoName = todo.todoName
+    Object.keys(todoList).forEach((key) => {
+        if (todoList[key].isShown === true) todoName = todoList[key].todoName
     });
 
     return todoName
@@ -32,7 +32,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
     addNewTask: (newTaskText, dataOfCreate, isImmediate) => dispatch(addNewTask(newTaskText, dataOfCreate, isImmediate)),
     clickOnTask: task => dispatch(clickOnTask(task)),
-    deleteTodo: () => dispatch(deleteTodo()),
+    deleteTodo: (todoName) => dispatch(deleteTodo(todoName)),
     deleteTask: task => dispatch(deleteTask(task))
 });
 

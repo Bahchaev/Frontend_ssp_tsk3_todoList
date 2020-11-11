@@ -13,13 +13,11 @@ const TodoAddField = ({addNewTodo, todoList}) => {
                     return
                 }
 
-                //добавляем новый список только если имя списка уникально
-                if (todoList.every((todo) =>
-                    input.value.trim() !== todo.todoName
-                )) addNewTodo(input.value);
+                //добавляем новый список
+                addNewTodo(input.value);
                 input.value = ""
             }}>
-                <input className={styles.todoAddInput} ref={node => (input = node)} type="text" required/>
+                <input className={styles.todoAddInput} ref={node => (input = node)} type="text" required placeholder={'новый список'}/>
                 <button className={styles.todoAddButton} type={"submit"}>Добавить список</button>
             </form>
         </div>

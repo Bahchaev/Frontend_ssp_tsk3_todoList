@@ -2,17 +2,14 @@ import React from "react";
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
-import TodoListContainer from "../../Containers/TodoListContainer";
-import TaskListContainer from "../../Containers/TaskListContainer";
 import database from "../../firebase";
-
 const Auth = () => {
     /**
      * Handles the sign in button press.
      */
     const toggleSignIn = () => {
         if (firebase.auth().currentUser) {
-            firebase.auth().signOut()
+            firebase.auth().signOut().then()
 
         } else {
             let email = emailInput.value;
@@ -104,8 +101,6 @@ const Auth = () => {
     let userInfo;
     let signUpButton;
 
-
-
     return (
         <div>
             <input type="email" placeholder="Email" ref={node => (emailInput = node)}/>
@@ -118,8 +113,6 @@ const Auth = () => {
             &nbsp;&nbsp;&nbsp;
             <p ref={node => (userInfo = node)}/>
             <div>
-                {/*<TodoListContainer/>*/}
-                {/*<TaskListContainer/>*/}
             </div>
         </div>
     )

@@ -9,11 +9,11 @@ const TaskList = ({taskList, addNewTask, clickOnTask, todoName, deleteTodo, dele
     return (
         <div className={styles.taskListContainer}>
             <div className={styles.taskListHeader}>
-                <TaskListHeader todoName={todoName} onClick={() => deleteTodo()}/>
+                <TaskListHeader todoName={todoName} onClick={(todoName) => deleteTodo(todoName)}/>
             </div>
             <div className={styles.taskList}>
-                {taskList.map(task => (
-                    <Task task={task} onClick={() => clickOnTask(task)} deleteTask={() => deleteTask(task)} />
+                {Object.keys(taskList).map(key => (
+                    <Task task={taskList[key]} onClick={() => clickOnTask(taskList[key])} deleteTask={() => deleteTask(taskList[key])} />
                 ))}
             </div>
             <div className={styles.taskAddField}>

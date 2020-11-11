@@ -6,6 +6,7 @@ import 'firebase/database'
 const database = () => {
     let dB = firebase.database();
 
+    //добавление нового пользователя в базу данных
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             let email = user.email;
@@ -16,7 +17,7 @@ const database = () => {
                     dB.ref(`${userId}/`).set({
                         email: email,
                         todoList: []
-                    })
+                    }).then()
                 }
             })
         }

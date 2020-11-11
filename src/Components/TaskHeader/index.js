@@ -5,7 +5,7 @@ import styles from "./styles.module.css"
 const TaskHeader = ({todoName, onClick}) => {
 
     const deleteBtnClick = () => {
-        if (window.confirm("Удалить?")) onClick()
+        if (window.confirm("Удалить?")) onClick(todoName)
     };
 
     return (

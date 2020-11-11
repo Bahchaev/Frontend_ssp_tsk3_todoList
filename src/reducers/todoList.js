@@ -1,145 +1,84 @@
 import {
     FETCH_TODO_LIST,
     ADD_NEW_TASK, ADD_NEW_TODO, CLICK_ON_TASK, CLICK_ON_TODO,
-    DELETE_TASK, DELETE_TODO, SET_TODO_IS_DONE
+    DELETE_TASK, DELETE_TODO, SET_TODO_IS_DONE, STOP_FETCHING
 } from "../actions/actions";
-import firebase from "firebase"
 import 'firebase/auth';
 
 const initialState = {
-    todoList: []
+    todoList: {}
 };
 
-export function todoList(state= [], action) {
+export function todoList(state = {}, action) {
     switch (action.type) {
-        // case FETCH_TODO_LIST: {
-        //     console.log(action.payload);
-        //     return [
-        //         ...state,
-        //         action.payload
-        //     ]
-        // }
+
+        case FETCH_TODO_LIST: {
+
+            if (action.payload.todoList) {
+                let newState = action.payload.todoList;
+                Object.keys(newState).forEach(key => {
+                    newState[key].isShown = false;
+                });
+                let shownTodo = Object.keys(state).find(key => state[key].isShown === true);
+                if (shownTodo) {
+                    if (newState[shownTodo]) newState[shownTodo].isShown = true
+                } else {
+                    let firstTodo = Object.keys(newState)[0];
+                    newState[firstTodo].isShown = true
+                }
+
+                return newState
+
+            } else return {}
+        }
+
+        case STOP_FETCHING: {
+            return {}
+        }
 
         case ADD_NEW_TODO: {
 
-            // let newState = [
-            //     ...state
-            // ];
-            // newState.forEach(todo => todo.isShown = false);
-            // newState.push({
-            //     todoName: action.newTodoName,
-            //     isShown: true,
-            //     taskList: [],
-            // });
-            //
-            // let userId;
-            // if (firebase.auth().currentUser) userId = firebase.auth().currentUser.uid;
-            // const Post = firebase.database().ref(`${userId}/todoList`);
-            // Post.push({
-            //     todoName: action.newTodoName,
-            //     isShown: true,
-            //     taskList: [],
-            // });
-            //
-            // return newState
+            let newState = {
+                ...state
+            };
 
+            Object.keys(newState).forEach(key => {
+                newState[key].isShown = (newState[key].todoName === action.todoName)
+            });
 
-            return [
-                ...state.map(todo => ({...todo, isShown: false})),
-                {
-                    todoName: action.newTodoName,
-                    isShown: true,
-                    taskList: [],
-                }
-            ]
+            return newState
         }
 
         case CLICK_ON_TODO: {
-            return state.map(todo =>
-                todo.todoName === action.todoName ?
-                    {...todo, isShown: true} :
-                    {...todo, isShown: false}
-            )
+            let newState = {
+                ...state
+            };
+
+            Object.keys(newState).forEach(key =>
+                newState[key].isShown = (newState[key].todoName === action.todoName)
+            );
+
+            return newState
         }
 
         case DELETE_TODO: {
-            let newState = [
-                ...state
-            ];
-
-            for (let i = 0; i < newState.length; i++) {
-                if (newState.length === 0) break;
-                if (newState[i].isShown === true) {
-
-                    if (i > 0) {
-                        newState[i - 1].isShown = true
-                    }
-                    if (i === 0 && newState.length !== 1) {
-                        newState[i + 1].isShown = true
-                    }
-
-                    newState.splice(i, 1);
-                    break;
-                }
-            }
-
-            return newState
+            return {...state}
         }
 
         case SET_TODO_IS_DONE: {
-            return state.map(todo =>
-                todo.todoName === action.todoName ?
-                    {...todo, isDone: action.isDone} :
-                    {...todo}
-            )
+            return {...state}
         }
 
         case ADD_NEW_TASK: {
-            return state.map(todo =>
-                todo.isShown === true ?
-                    {
-                        ...todo, taskList: [
-                            ...todo.taskList,
-                            {
-                                taskText: action.taskText,
-                                isDone: false,
-                                dateOfCreate: action.dateOfCreate,
-                                isImmediate: action.isImmediate
-                            }
-                        ]
-                    } :
-                    todo
-            )
+            return {...state}
         }
 
         case CLICK_ON_TASK: {
-            // return [...state]
-
-            return state.map(todo => ({
-                ...todo,
-                taskList: todo.taskList.map(task => (
-                    task === action.task ?
-                        {...task, isDone: !task.isDone} :
-                        {...task}
-                ))
-            }))
+            return {...state}
         }
+
         case DELETE_TASK: {
-            let newState = [
-                ...state
-            ];
-
-            for (let i = 0; i < newState.length; i++) {
-                if (newState[i].isShown === true) {
-                    newState[i].taskList = newState[i].taskList.filter((task) =>
-                        task !== action.task
-                    );
-                    break;
-                }
-            }
-            console.log(newState);
-
-            return newState
+            return {...state}
         }
 
         default:

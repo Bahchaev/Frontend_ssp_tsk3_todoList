@@ -19,5 +19,10 @@
 }
 
 .todoList {
+    border-top: 1px solid gray;
     height: 100%;
+}
+
+.filter {
+    margin: 10px 0;
 }

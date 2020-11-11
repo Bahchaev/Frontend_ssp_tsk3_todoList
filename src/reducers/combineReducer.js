@@ -1,11 +1,10 @@
-import {combineReducers, compose, createStore} from "redux";
+import {combineReducers} from "redux";
 import {todoList} from "./todoList";
-import {firebaseReducer, reactReduxFirebase} from 'react-redux-firebase'
-import firebase from 'firebase'
+
 
 
 const todoApp = combineReducers({
-    todoList,
+    todoList: todoList,
 });
 export default todoApp
 
